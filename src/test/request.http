@@ -1,0 +1,33 @@
+### Create
+POST http://localhost:8080/api/schedules
+Content-Type: application/json
+
+{
+  "title": "01. Initial",
+  "content": "C0ntent",
+  "author": "ChickenJockey",
+  "password": "aaaa"
+}
+
+### List
+GET http://localhost:8080/api/schedules?page=0&size=5
+
+### Get One
+GET http://localhost:8080/api/schedules/1
+
+### Update (PW 필요)
+PATCH http://localhost:8080/api/schedules/1
+Content-Type: application/json
+
+{
+  "title": "02. ChangeTitle",
+  "password": "aaaa"
+}
+
+### Delete (PW 필요)
+DELETE http://localhost:8080/api/schedules/1
+Content-Type: application/json
+
+{
+  "password": "aaaa"
+}

@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/schedule_db?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root # schedule
+    password: pass # s3cret!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+    open-in-view: false
+server:
+  port: 8080
+
+# properties <-> yml
+# 현 실습은 yml 진행 -> properties - yml 정리 예정.

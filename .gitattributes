@@ -1,0 +1,14 @@
+* text=auto eol=lf
+
+# OS별 스크립트 보장
+*.sh        text eol=lf
+gradlew     text eol=lf
+*.bat       text eol=crlf
+gradlew.bat text eol=crlf
+
+# 소스/설정 파일은 LF 고정
+*.java text eol=lf
+*.kt   text eol=lf
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
