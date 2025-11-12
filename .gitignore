@@ -51,3 +51,18 @@ Thumbs.db
 target/
 *.log/src/etc/**   
 /src/main/etc/**  
+
+# Build outputs
+/build/
+/.gradle/
+out/
+tmp/
+
+# IDE
+/.idea/
+/*.iml
+/.vscode/
+
+# keep Gradle wrapper (do NOT ignore)
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
