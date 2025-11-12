@@ -51,8 +51,11 @@ public class ScheduleService {
         return repository.save(s);
     }
 
-    public Page<Schedule> list(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Schedule> list(String author, Pageable pageable) {
+        if(author!=null&&!author.isBlank()){ // null + 공백 : isEmpty() 이건 안되려나?
+            return repository.findAllByAuthorOrderByUpdatedAtDesc(author, pageable); // 찾다 모두 저자 주문 ~에의해 업데이트 된 내림차순으로
+        }
+        return repository.findAllByOrderByUpdatedAtDesc(pageable); // 찾다 모두 주문 ~에의해 갱신된 내림차순으로
     }
 
     public Schedule get(Long id) {
@@ -76,4 +79,6 @@ public class ScheduleService {
         }
         repository.delete(s);
     }
+
+
 }

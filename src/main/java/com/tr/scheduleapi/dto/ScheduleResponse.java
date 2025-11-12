@@ -1,4 +1,4 @@
-package com.tr.scheduleapi.dto;
+package com.tr.scheduleapi.dto; // Controller <- Response : Output
 
 import com.tr.scheduleapi.domain.Schedule;
 

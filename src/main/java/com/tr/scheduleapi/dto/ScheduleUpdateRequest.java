@@ -2,6 +2,7 @@ package com.tr.scheduleapi.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -12,8 +13,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ScheduleUpdateRequest {
     // 아무것도 입력하지 않은 경우 : 제약 수정 필요.
+    @Size(max = 100)
     private String title;
     private String content;
+    @Size(max = 50)
     private String author;
     @NotBlank
     private String password;

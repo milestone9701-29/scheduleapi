@@ -37,7 +37,7 @@ public class Schedule extends BaseTimeEntity { // 매핑
     @Column(name = "password_hash", nullable = false, length = 100)
     private String passwordHash;
 
-    public void update(String title, String content, String author) { // 동작이 의도된 메서드
+    public void update(String title, String content, String author) { // 패치용 Write
         if (title != null) this.title = title;
         if (content != null) this.content = content;
         if (author != null) this.author = author;

@@ -22,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 // page
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+// Sort
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 
 // Output : ResponseEntity 등.
@@ -50,9 +52,9 @@ public class ScheduleController {
     }
 
     @GetMapping // list : 컬렉션(page, 정렬)
-    public ResponseEntity<Page<ScheduleResponse>> list(@PageableDefault(size = 10, sort = {"id"}) Pageable pageable) { // 기본 페이지 크기 10, id 정렬
-        Page<ScheduleResponse> page = service.list(pageable).map(ScheduleResponse::from);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<Page<ScheduleResponse>> list(@PageableDefault(size = 10, sort = {"updatedAt"}, direction= Sort.Direction.DESC)
+                                                           Pageable pageable, @RequestParam(required=false) String author) { // 기본 페이지 크기 10, updatedAt 정렬
+        return ResponseEntity.ok(service.list(author, pageable).map(ScheduleResponse::from);
     }
 
     @GetMapping("/{id}") // 단건 조회
