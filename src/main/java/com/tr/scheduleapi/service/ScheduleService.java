@@ -29,6 +29,8 @@ import org.springframework.data.domain.Pageable;
 // Encoding PW
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 // NoSuchElementException
 import java.util.NoSuchElementException;
@@ -41,6 +43,7 @@ public class ScheduleService {
     private final ScheduleRepository repository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public Schedule create(ScheduleCreateRequest req) { // Schedule -> @builder
         Schedule s = Schedule.builder()
                 .title(req.getTitle()) // Read ~
@@ -51,6 +54,7 @@ public class ScheduleService {
         return repository.save(s);
     }
 
+    @Transactional(readOnly=true)
     public Page<Schedule> list(String author, Pageable pageable) {
         if(author!=null&&!author.isBlank()){ // null + 공백 : isEmpty() 이건 안되려나?
             return repository.findAllByAuthorOrderByUpdatedAtDesc(author, pageable); // 찾다 모두 저자 주문 ~에의해 업데이트 된 내림차순으로
@@ -58,11 +62,13 @@ public class ScheduleService {
         return repository.findAllByOrderByUpdatedAtDesc(pageable); // 찾다 모두 주문 ~에의해 갱신된 내림차순으로
     }
 
+    @Transactional
     public Schedule get(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Schedule not found: " + id));
     }
 
+    @Transactional
     public Schedule update(Long id, ScheduleUpdateRequest req) {
         Schedule s = get(id);
         if (!passwordEncoder.matches(req.getPassword(), s.getPasswordHash())) {
@@ -74,6 +80,7 @@ public class ScheduleService {
         return repository.save(s); // Auditing -> 자동갱신.
     }
 
+    @Transactional
     public void delete(Long id, String password) {
         Schedule s = get(id);
         if (!passwordEncoder.matches(password, s.getPasswordHash())) {

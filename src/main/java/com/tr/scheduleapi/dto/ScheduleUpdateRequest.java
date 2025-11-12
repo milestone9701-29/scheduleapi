@@ -11,9 +11,9 @@ import lombok.AllArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleUpdateRequest {
+public class ScheduleUpdateRequest { // 전달 -> 검증 : GlobalExceptionHandler
     // 아무것도 입력하지 않은 경우 : 제약 수정 필요.
-    @Size(max = 100)
+    @Size(max = 30)
     private String title;
    // private String content; : 제목, 작성자만 수정.
     @Size(max = 50)

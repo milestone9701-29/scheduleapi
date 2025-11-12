@@ -3,6 +3,7 @@ package com.tr.scheduleapi.dto;
 import jakarta.validation.constraints.NotBlank;
 
 // Read
+
 import lombok.Getter;
 
 // 생성자

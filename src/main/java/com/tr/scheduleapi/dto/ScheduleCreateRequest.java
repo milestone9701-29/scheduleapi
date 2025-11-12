@@ -18,9 +18,9 @@ import lombok.AllArgsConstructor; // 모든 필드 값을 parameter로 받음.
 @NoArgsConstructor // parameter 없음
 @AllArgsConstructor // parameter : String
 public class ScheduleCreateRequest {
-    @NotBlank @Size(max = 100)
+    @NotBlank @Size(max = 30)
     private String title;
-    @NotBlank
+    @NotBlank @Size(max = 200)
     private String content;
     @NotBlank @Size(max = 50)
     private String author;

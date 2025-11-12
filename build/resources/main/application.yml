@@ -14,3 +14,6 @@ spring:
     open-in-view: false
 server:
   port: 8080
+
+# properties <-> yml
+# 현 실습은 yml 진행 -> properties - yml 정리 예정.

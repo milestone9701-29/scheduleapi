@@ -4,8 +4,10 @@ package com.tr.scheduleapi.exception; // 예외 로직 분기
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+// getFieldErrors()
 import org.springframework.validation.FieldError;
 
+// MethodArgumentNotValidException
 import org.springframework.web.bind.MethodArgumentNotValidException;
 // 분기 + 정리
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-        for (FieldError fe : ex.getBindingResult().getFieldErrors()) {
+        for (FieldError fe : ex.getBindingResult().getFieldErrors()) { // ex.getBindingResult() : org.springframework.validation.BindException
             errors.put(fe.getField(), fe.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
@@ -59,6 +61,14 @@ public class GlobalExceptionHandler {
                 "error", "password_mismatch",
                 "message", ex.getMessage()
         ));
+    }
+
+    // 409
+    @ExceptionHandler(CommentLimitExceeded.class)
+    public ResponseEntity<?> handleCommentLimit(CommentLimitExceeded ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
+                "error", "comment_limit_exceeded",
+                "message", ex.getMessage()));
     }
 
     // 500으로 틀어막기
