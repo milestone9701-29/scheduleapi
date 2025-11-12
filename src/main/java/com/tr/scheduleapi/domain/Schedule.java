@@ -5,7 +5,22 @@ import lombok.*;
 
 @Entity
 
-@Table(name = "schedules") // 테이블명
+@Table(
+        name = "schedules", // table name
+        indexes=@Index( // DDL : Index 정의
+                name="idx_author_updated", // index name
+                columnList="author, updated_at")) // 컬럼명 : Entity와 헷갈리지 않도록 주의.
+// Hibernate ddl-auto : update 관련 점검 시
+// SQL CLI : CREATE INDEX idx_author_updated ON schedules (author, updated_at);
+// 적용
+// SHOW INDEX FROM schedules;
+/*
+EXPLAIN
+SELECT *
+FROM schedules
+WHERE author='X'
+ORDER BY updated_at DESC;
+ */
 
 //Read
 @Getter
@@ -14,6 +29,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+
 public class Schedule extends BaseTimeEntity { // 매핑
     // GenerationType.SEQUENCE : 대량 삽입 작업 시 : 해당 내용 보충 필요.
 
@@ -37,9 +53,10 @@ public class Schedule extends BaseTimeEntity { // 매핑
     @Column(name = "password_hash", nullable = false, length = 100)
     private String passwordHash;
 
-    public void update(String title, String content, String author) { // 패치용 Write
+    // String content << 과제 요구 사항. X
+    public void update(String title, String author) { // 패치용 Write
         if (title != null) this.title = title;
-        if (content != null) this.content = content;
+        // if (content != null) this.content = content; 제목, 작성자만 수정.
         if (author != null) this.author = author;
     }
 }

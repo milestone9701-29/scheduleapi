@@ -19,7 +19,9 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice // 횡단
 public class GlobalExceptionHandler {
 
-    // 400
+    // DTO @Valid -> 검증 실패 -> MethodArgumentNotValidException
+    // 예외를 가로채서(handle) 각 필드 오류를 field : message로 수집
+    // HTTP 400과 함께, 표준화된 JSON Body로 리턴.
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -29,6 +31,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
                 "error", "validation_failed",
                 "details", errors
+        ));
+    }
+
+    // 400
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<?> handleIllegalArgument(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "error", "illegal_argument",
+                "details", ex.getMessage()
         ));
     }
 

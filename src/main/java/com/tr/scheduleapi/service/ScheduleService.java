@@ -68,8 +68,10 @@ public class ScheduleService {
         if (!passwordEncoder.matches(req.getPassword(), s.getPasswordHash())) {
             throw new PasswordMismatchException();
         }
-        s.update(req.getTitle(), req.getContent(), req.getAuthor());
-        return repository.save(s);
+        if(req.getTitle() == null && req.getAuthor() == null){ throw new IllegalArgumentException("수정할 필드가 없습니다."); }
+
+        s.update(req.getTitle(), req.getAuthor()); // req.getContent(), Title - Author
+        return repository.save(s); // Auditing -> 자동갱신.
     }
 
     public void delete(Long id, String password) {

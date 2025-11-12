@@ -15,7 +15,7 @@ public class ScheduleUpdateRequest {
     // 아무것도 입력하지 않은 경우 : 제약 수정 필요.
     @Size(max = 100)
     private String title;
-    private String content;
+   // private String content; : 제목, 작성자만 수정.
     @Size(max = 50)
     private String author;
     @NotBlank

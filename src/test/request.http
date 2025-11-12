@@ -31,3 +31,18 @@ Content-Type: application/json
 {
   "password": "aaaa"
 }
+
+### 작성자 필터
+GET http://localhost:8080/api/schedules?author=ChickenJockey
+
+### 수정 제한 검증(제목만)
+PATCH http://localhost:8080/api/schedules/1
+Content-Type: application/json
+
+{ "title": "c4ange titl3", "password": "aaaa" }
+
+### 잘못된 요청(둘 다 없음 → 400)
+PATCH http://localhost:8080/api/schedules/1
+Content-Type: application/json
+
+{ "password": "aaaa" }
