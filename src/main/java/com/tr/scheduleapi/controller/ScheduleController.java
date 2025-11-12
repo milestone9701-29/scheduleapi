@@ -87,13 +87,13 @@ public class ScheduleController {
 - 따라서, 어떤 경위로 코드가 설계되었는지 또한 각각의 클래스 파일을 처음 봤을 땐 도저히 모르겠음.
 - 전체 구조를 모르니, 지엽적인 정보가 어떤 목차에 해당하는지, 왜 쓰이는지 알기가 어려운 구조 : 정보를 구조화하기가 어렵다 : 개념 파편화.
 - 수정할 사안이 생긴다면 추가적으로 무엇을 수정해야 하는지 로직 쫓기.
-- 하이라이트가 의존 방향이었던 것 같음. 종 - 횡에 따른 이해와 거기에 따른 Mapping으로 분기 나누기(GlobalExceptionException). 실제 연산(Service).
-쿼리 메서드로 DB와 상호작용(Repository) 등.
+- 하이라이트가 의존 방향이었던 것 같음. 종 - 횡에 따른 이해와 거기에 따른 Mapping으로 분기 나누기(Controller). 실제 연산(Service). 예외 분기(GlobalExceptionException)
+쿼리 메서드로 DB와 상호작용(Repository) 등. : 이거 라우팅이랑 로직 분기인가 그런 개념도 있는데 정리할게 또 생김.
 - 내가 지금 뭐라 말하는지도 모르겠음 ㅋㅋ
 
 그래도 학습 방식에 대해서 다시 정리도 해보고 이거저거 정보도 좀 찾아서 보완한 계기가 되었기도 해서, 재밌는 프로젝트였음.
 
-사실 컨트롤러 분리, DTO 패키지 분류 및 정리, 쿼리 메서드, 개인 프로젝트 시 content 관련 주석 처리, recode class로 커멘드 추가
+사실 컨트롤러 분리, DTO 패키지 분류 및 정리, 쿼리 메서드, 개인 프로젝트 시 content 관련 주석 처리, record class로 커멘드 추가
 entity 내부검증 normalizeTitle()  Author() @org.jspecify.annotations.Nullable String title
 Objects.requireNonNull(T obj, String msg) 와의 차이 등.
 아직 학습할건 많다는걸 느낌. 하다보면 되겠지요.
