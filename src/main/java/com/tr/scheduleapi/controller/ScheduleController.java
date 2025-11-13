@@ -46,7 +46,7 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
     private final CommentService commentService; // 분리 고민 중. 분리 해야할거 같다
 
-    @PostMapping("/api/schedules") // Create resource : 201
+    @PostMapping // Create resource : 201
     public ResponseEntity<ScheduleResponse> create(@Valid @RequestBody ScheduleCreateRequest req) { // DTO -> @NotBlank
         Schedule saved = scheduleService.create(req); // -> service
         URI location = URI.create("/api/schedules/" + saved.getId());
