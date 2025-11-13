@@ -24,7 +24,7 @@ public class Comment extends BaseTimeEntity{ // BaseTime : Comment, Schedule : @
     private String passwordHash;
     
     // 기본 접근 방식 : 단방향 -> 1
-    // default fetch=EAGER : N+1 방지.
+    // default fetch=EAGER
     @ManyToOne(fetch=FetchType.LAZY, optional=false) 
     @JoinColumn(name="schedule_id")
     private Schedule schedule;

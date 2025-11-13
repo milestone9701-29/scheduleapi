@@ -57,12 +57,13 @@ public class ScheduleService {
     @Transactional(readOnly=true)
     public Page<Schedule> list(String author, Pageable pageable) {
         if(author!=null&&!author.isBlank()){ // null + 공백 : isEmpty() 이건 안되려나?
-            return repository.findAllByAuthorOrderByUpdatedAtDesc(author, pageable); // 찾다 모두 저자 주문 ~에의해 업데이트 된 내림차순으로
+            return repository.findAllByAuthorOrderByUpdatedAtDesc(author, pageable);
         }
-        return repository.findAllByOrderByUpdatedAtDesc(pageable); // 찾다 모두 주문 ~에의해 갱신된 내림차순으로
+        return repository.findAllByOrderByUpdatedAtDesc(pageable);
     }
+    // SQL문, 쿼리 메서드? 관련 보충 필요.
 
-    @Transactional
+    @Transactional(readOnly=true)
     public Schedule get(Long id) {
         return repository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Schedule not found: " + id));
@@ -71,11 +72,10 @@ public class ScheduleService {
     @Transactional
     public Schedule update(Long id, ScheduleUpdateRequest req) {
         Schedule s = get(id);
-        if (!passwordEncoder.matches(req.getPassword(), s.getPasswordHash())) {
+        if (!passwordEncoder.matches(req.getPassword(), s.getPasswordHash())) { // pw 불일치
             throw new PasswordMismatchException();
         }
         if(req.getTitle() == null && req.getAuthor() == null){ throw new IllegalArgumentException("수정할 필드가 없습니다."); }
-
         s.update(req.getTitle(), req.getAuthor()); // req.getContent(), Title - Author
         return repository.save(s); // Auditing -> 자동갱신.
     }

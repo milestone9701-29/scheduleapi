@@ -1,5 +1,6 @@
 package com.tr.scheduleapi.controller; // 분기
 
+import com.tr.scheduleapi.domain.Comment;
 import com.tr.scheduleapi.domain.Schedule;
 
 // IO DTO : DTO 정리 필요.
@@ -29,6 +30,9 @@ import org.springframework.http.ResponseEntity;
 // Mapping, @RequestBody, @PathVariable
 import org.springframework.web.bind.annotation.*;
 
+// URI
+import java.net.URI;
+
 
 // ResponseBody : Data 반환
 // Controller : View 반환
@@ -42,16 +46,24 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
     private final CommentService commentService; // 분리 고민 중. 분리 해야할거 같다
 
-    @PostMapping // Create resource : 201
+    @PostMapping("/api/schedules") // Create resource : 201
     public ResponseEntity<ScheduleResponse> create(@Valid @RequestBody ScheduleCreateRequest req) { // DTO -> @NotBlank
         Schedule saved = scheduleService.create(req); // -> service
-        return ResponseEntity.status(HttpStatus.CREATED).body(ScheduleResponse.from(saved)); // -> dto.response
+        URI location = URI.create("/api/schedules/" + saved.getId());
+
+        return ResponseEntity.created(location).body(ScheduleResponse.from(saved));
+        // ResponseEntity.created(location) : 201 + Location(URI.create("/api/schedules/"+saved.getId());
+        // -> status(HttpStatus.CREATED)는 필요 없음.
+
+        // return ResponseEntity.status(HttpStatus.CREATED).location(location).body(ScheduleResponse.from(saved)); // -> dto.response
     }
 
     @PostMapping("/{id}/comments") // 분리분리분리분리
     public ResponseEntity<CommentResponse> addComment(
             @PathVariable Long id, @Valid @RequestBody CommentCreateRequest req) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(CommentResponse.from(commentService.create(id,req)));
+        Comment saved = commentService.create(id, req);
+        URI location = java.net.URI.create("/api/schedules/" + id + "/comments/" + saved.getId()); // 정리 예정.
+        return ResponseEntity.created(location).body(CommentResponse.from(saved));
     }
 
     @GetMapping // list : 컬렉션(page, 정렬)

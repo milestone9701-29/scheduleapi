@@ -3,6 +3,7 @@ package com.tr.scheduleapi.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 
 @Table(

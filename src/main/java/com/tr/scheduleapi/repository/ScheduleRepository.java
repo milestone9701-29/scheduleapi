@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    Page<Schedule> findAllByAuthorOrderByUpdatedAtDesc(String author, Pageable pageable); // SELECT * FROM schedules WHERE author=? ORDER BY updated_at DESC;
-    Page<Schedule> findAllByOrderByUpdatedAtDesc(Pageable pageable); // ORDER BY updated_at DESC
+    Page<Schedule> findAllByAuthorOrderByUpdatedAtDesc(String author, Pageable pageable);
+    Page<Schedule> findAllByOrderByUpdatedAtDesc(Pageable pageable);
 }
+// SELECT * FROM schedules WHERE author=? ORDER BY updated_at DESC;
+// ORDER BY updated_at DESC
